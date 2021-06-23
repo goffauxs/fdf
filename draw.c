@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 10:17:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/23 11:26:54 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:03:12 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,42 @@ void ft_put_pixel(t_fdf *env, int x, int y, int color)
 	}
 }
 
-// static void ft_background(t_fdf *env)
-// {
-// 	int	*image;
-// 	int	i;
+static void ft_background(t_fdf *env)
+{
+	int	*image;
+	int	i;
 
-// 	i = 0;
-// 	ft_bzero(env->data_addr, 800 * 600 * (env->bpp / 8));
-// 	image = (int *)env->data_addr;
-// 	while (i < 800 * 600)
-// 	{
-// 		image[i] = 0;
-// 		i++;
-// 	}
-// }
+	i = 0;
+	ft_bzero(env->data_addr, WIDTH * HEIGHT * (env->bpp / 8));
+	image = (int *)env->data_addr;
+	while (i < WIDTH * HEIGHT)
+	{
+		image[i] = 0;
+		i++;
+	}
+}
 
 void	ft_draw(t_map *map, t_fdf *env)
 {
-	// int	x;
-	// int	y;
-	
-	(void)map;
-	//ft_background(env);
+	int	x;
+	int	y;
+	int zoom;
+
+	zoom = ft_min((WIDTH / map->width / 2), (HEIGHT / map->height / 2));
+	ft_background(env);
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (x != map->width - 1)
+				draw_line(iso(x, y, map, zoom), iso(x + 1, y, map, zoom), env);
+			if (y != map->height - 1)
+				draw_line(iso(x, y, map, zoom), iso(x, y + 1, map, zoom), env);
+			x++;
+		}
+		y++;
+	}
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }

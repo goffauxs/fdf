@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/23 12:44:28 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:08:17 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,58 @@
 #include "fdf.h"
 #include <stdio.h>
 
-// static void	ft_init(t_fdf *env)
-// {
-// 	env->map_h = 0;
-// 	env->map_w = 0;
-// }
+static t_fdf	*ft_init(t_map *map)
+{
+	t_fdf	*env;
+	
+	env = malloc(sizeof(t_fdf));
+	if (!env)
+		return NULL;
+	env->mlx = mlx_init();
+	if (!env->mlx)
+		return NULL;
+	env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, "test");
+	if (!env->win)
+		return NULL;
+	env->img = mlx_new_image(env->mlx, WIDTH, HEIGHT);
+	if (!env->img)
+		return NULL;
+	env->data_addr = mlx_get_data_addr(env->img, &env->bpp, &env->size_line,
+										&env->endian);
+	env->map = map;
+	return (env);
+}
+
+static t_map	*ft_map_init()
+{
+	t_map *map;
+
+	map = malloc(sizeof(t_map));
+	if (!map)
+		return NULL;
+	map->height = 0;
+	map->width = 0;
+	map->array = NULL;
+	return (map);
+}
+
+t_point	iso(int x, int y, t_map *map, int zoom)
+{
+	t_point	point;
+	int	z;
+	
+	z = map->array[y][x];
+	x *= zoom;
+	y *= zoom;
+	z *= zoom;
+	x -= (map->width * zoom) / 2;
+	y -= (map->height * zoom) / 2;
+	point.x = (x - y) * cos(0.523599);
+	point.y = -z + (x + y) * sin(0.523599);
+	point.x += WIDTH / 2;
+	point.y += (HEIGHT + map->height * zoom) / 2;
+	return (point);
+}
 
 static int	close_win(t_fdf *env)
 {
@@ -29,48 +76,16 @@ static int	close_win(t_fdf *env)
 	exit(0);
 }
 
-// static int	ft_mouse_hook(int button, int x, int y, t_fdf *env)
-// {
-// 	static int	first_click = 0;
-// 	static int	x0 = 0;
-// 	static int	x1 = 0;
-// 	static int	y0 = 0;
-// 	static int	y1 = 0;
-
-// 	if (first_click)
-// 	{
-// 		x1 = x;
-// 		y1 = y;
-// 		ft_draw_line(x0, y0, x1, y1, env);
-// 		first_click = 0;
-// 	}
-// 	else
-// 	{
-// 		x0 = x;
-// 		y0 = y;
-// 		first_click = 1;
-// 	}
-// 	ft_put_pixel(env, x, y, 0x00FF0000);
-// 	ft_draw(env->map, env);
-// 	printf("(%3d, %3d)\n", x, y);
-// 	(void)button;
-// 	return (0);
-// }
-
 int main(int argc, char *argv[])
 {
-	t_fdf	env;
+	t_fdf	*env;
+	t_map	*map;
 	
 	(void)argc;
-	(void)argv;
-	env.mlx = mlx_init();
-	env.win = mlx_new_window(env.mlx, 800, 600, "test");
-	env.img = mlx_new_image(env.mlx, 800, 600);
-	env.data_addr = mlx_get_data_addr(env.img, &env.bpp, 
-		&env.size_line, &env.endian);
-	//mlx_hook(env.win, 4, 0, ft_mouse_hook, &env);
-	mlx_hook(env.win, 17, 0, close_win, &env);
-	draw_line(100, 100, 200, 125, &env);
-	ft_draw(env.map, &env);
-	mlx_loop(env.mlx);
+	map = ft_map_init();
+	env = ft_init(map);
+	mlx_hook(env->win, 17, 0, close_win, &env);
+	ft_check_valid(argv[1], map);
+	ft_draw(env->map, env);
+	mlx_loop(env->mlx);
 }

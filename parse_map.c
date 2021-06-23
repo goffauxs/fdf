@@ -6,12 +6,11 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:20:45 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/23 11:17:35 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:22:48 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 static int ft_get_height(char *filename)
 {
@@ -62,13 +61,13 @@ static void ft_fill_table(int *n, char *line)
 	while (num[i])
 	{
 		n[i] = ft_atoi(num[i]);
-		i++;
 		free(num[i]);
+		i++;
 	}
 	free(num);
 }
 
-int	ft_check_valid(char *filename, t_map *map, t_fdf *env)
+int	ft_check_valid(char *filename, t_map *map)
 {
 	int		fd;
 	char	*line;
@@ -78,19 +77,19 @@ int	ft_check_valid(char *filename, t_map *map, t_fdf *env)
 	map->height = ft_get_height(filename);
 	fd = open(filename, O_RDONLY);
 	i = 0;
-	env->map = malloc(sizeof(int *) * (map->height + 1));
-	if (!env->map)
+	map->array = malloc(sizeof(int *) * (map->height + 1));
+	if (!map->array)
 		return (0);
 	while (get_next_line(fd, &line))
 	{
-		map->map[i] = malloc(sizeof(int) * (map->width + 1));
-		if (!map->map[i])
+		map->array[i] = malloc(sizeof(int) * (map->width + 1));
+		if (!map->array[i])
 			return (0);
-		ft_fill_table(map->map[i], line);
+		ft_fill_table(map->array[i], line);
 		i++;
 		free(line);
 	}
-	map->map[i] = NULL;
+	map->array[i] = NULL;
 	close(fd);
 	return (1);
 }

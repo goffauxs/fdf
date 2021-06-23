@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 11:38:44 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/23 12:49:23 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:09:34 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ static int	ft_ipart(float n)
 {
 	return ((int)n);
 }
-
-// static float ft_round(float n)
-// {
-// 	return (ft_ipart(n + 0.5f));
-// }
 
 static float ft_fpart(float n)
 {
@@ -50,49 +45,49 @@ static float ft_abs(float n)
 	return (n);
 }
 
-void draw_line(int x0, int y0, int x1, int y1, t_fdf *env)
+static void	ft_draw_line_loop(int steep, t_point s, t_point e, float gradient, t_fdf *env)
 {
-	int	steep = ft_abs(y1 - y0) > ft_abs(x1 - x0);
-	int	x;
-
-	if (steep)
-	{
-		ft_swap(&x0, &y0);
-		ft_swap(&x1, &y1);
-	}
-	if (x0 > x1)
-	{
-		ft_swap(&x0, &x1);
-		ft_swap(&y0, &y1);
-	}
-
-	float dx = x1 - x0;
-	float dy = y1 - y0;
-	float gradient = dy / dx;
-	if (dx == 0.0f)
-		gradient = 1.f;
-	float intersectY = y0;
+	float	intersectY;
 	
+	intersectY = (float)(s.y);
+	while (s.x <= e.x)
+	{
+		if (steep)
+		{
+			ft_put_pixel(env, ft_ipart(intersectY), s.x, 0xFF0000 * (int)(ft_rfpart(intersectY) * 255));
+			ft_put_pixel(env, ft_ipart(intersectY) - 1, s.x, 0xFF0000 * (int)(ft_fpart(intersectY) * 255));
+		}
+		else
+		{
+			ft_put_pixel(env, s.x, ft_ipart(intersectY), 0xFF0000 * (int)(ft_rfpart(intersectY) * 255));
+			ft_put_pixel(env, s.x, ft_ipart(intersectY) - 1, 0xFF0000 * (int)(ft_fpart(intersectY) * 255));
+		}
+		intersectY += gradient;
+		s.x++;
+	}
+}
+
+void draw_line(t_point s, t_point e, t_fdf *env)
+{
+	int			steep;
+	t_pointf 	delta;
+	float		gradient;
+
+	steep = ft_abs(e.y - s.y) > ft_abs(e.x - s.x);
 	if (steep)
 	{
-		x = x0;
-		while (x <= x1)
-		{
-			ft_put_pixel(env, ft_ipart(intersectY), x, 255 - (int)(ft_rfpart(intersectY) * 255));
-			ft_put_pixel(env, ft_ipart(intersectY) - 1, x, 255 - (int)(ft_fpart(intersectY) * 255));
-			intersectY += gradient;
-			x++;
-		}
+		ft_swap(&s.x, &s.y);
+		ft_swap(&e.x, &e.y);
 	}
-	else
+	if (s.x > e.x)
 	{
-		x = x0;
-		while (x <= x1)
-		{
-			ft_put_pixel(env, x, ft_ipart(intersectY), 255 - (int)(ft_rfpart(intersectY) * 255));
-			ft_put_pixel(env, x, ft_ipart(intersectY) - 1, 255 - (int)(ft_fpart(intersectY) * 255));
-			intersectY += gradient;
-			x++;
-		}
+		ft_swap(&s.x, &e.x);
+		ft_swap(&s.y, &e.y);
 	}
+	delta.x = (float)(e.x - s.x);
+	delta.y = (float)(e.y - s.y);
+	gradient = delta.y / delta.x;
+	if (delta.x == 0.0f)
+		gradient = 1.f;
+	ft_draw_line_loop(steep, s, e, gradient, env);
 }
