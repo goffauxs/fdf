@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/22 16:26:09 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/23 12:44:28 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,43 +23,39 @@
 // 	env->map_w = 0;
 // }
 
-// static void	ft_draw_line(int x0, int y0, int x1, int y1, t_fdf *env)
-// {
-// 	int dx;
-// 	int dy;
-// 	int p;
-// 	int x;
-// 	int y;
-	
-// 	dx = x1 - x0;
-// 	dy = y1 - y0;
-// 	x = x0;
-// 	y = y0;
-// 	p = 2 * dy - dx;
-// 	while (x < x1)
-// 	{
-// 		if (p >= 0)
-// 		{
-// 			mlx_pixel_put(env->mlx, env->mlx_win, x, y, 0x00FF0000);
-// 			y = y + 1;
-// 			p = p + 2 * dy - 2 * dx;
-// 		}
-// 		else
-// 		{
-// 			mlx_pixel_put(env->mlx, env->mlx_win, x, y, 0x00FF0000);
-// 			p = p + 2 * dy;
-// 			x = x + 1;
-// 		}
-// 	}
-// }
-
-static int	ft_mouse_hook(int button, int x, int y, t_fdf *env)
+static int	close_win(t_fdf *env)
 {
-	mlx_pixel_put(env->mlx, env->mlx_win, x, y, 0x00FF0000);
-	printf("(%3d, %3d)\n", x, y);
-	(void)button;
-	return (0);
+	(void)env;
+	exit(0);
 }
+
+// static int	ft_mouse_hook(int button, int x, int y, t_fdf *env)
+// {
+// 	static int	first_click = 0;
+// 	static int	x0 = 0;
+// 	static int	x1 = 0;
+// 	static int	y0 = 0;
+// 	static int	y1 = 0;
+
+// 	if (first_click)
+// 	{
+// 		x1 = x;
+// 		y1 = y;
+// 		ft_draw_line(x0, y0, x1, y1, env);
+// 		first_click = 0;
+// 	}
+// 	else
+// 	{
+// 		x0 = x;
+// 		y0 = y;
+// 		first_click = 1;
+// 	}
+// 	ft_put_pixel(env, x, y, 0x00FF0000);
+// 	ft_draw(env->map, env);
+// 	printf("(%3d, %3d)\n", x, y);
+// 	(void)button;
+// 	return (0);
+// }
 
 int main(int argc, char *argv[])
 {
@@ -68,8 +64,13 @@ int main(int argc, char *argv[])
 	(void)argc;
 	(void)argv;
 	env.mlx = mlx_init();
-	env.mlx_win = mlx_new_window(env.mlx, 800, 600, "test");
-	env.first_click = 0;
-	mlx_mouse_hook(env.mlx_win, ft_mouse_hook, &env);
+	env.win = mlx_new_window(env.mlx, 800, 600, "test");
+	env.img = mlx_new_image(env.mlx, 800, 600);
+	env.data_addr = mlx_get_data_addr(env.img, &env.bpp, 
+		&env.size_line, &env.endian);
+	//mlx_hook(env.win, 4, 0, ft_mouse_hook, &env);
+	mlx_hook(env.win, 17, 0, close_win, &env);
+	draw_line(100, 100, 200, 125, &env);
+	ft_draw(env.map, &env);
 	mlx_loop(env.mlx);
 }

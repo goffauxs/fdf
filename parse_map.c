@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:20:45 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/22 15:41:49 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/23 11:17:35 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,29 @@ static void ft_fill_table(int *n, char *line)
 	free(num);
 }
 
-int	ft_check_valid(char *filename, t_fdf *env)
+int	ft_check_valid(char *filename, t_map *map, t_fdf *env)
 {
 	int		fd;
 	char	*line;
 	int		i;
 
-	env->map_w = ft_get_width(filename);
-	env->map_h = ft_get_height(filename);
+	map->width = ft_get_width(filename);
+	map->height = ft_get_height(filename);
 	fd = open(filename, O_RDONLY);
 	i = 0;
-	env->map = malloc(sizeof(int *) * (env->map_h + 1));
+	env->map = malloc(sizeof(int *) * (map->height + 1));
 	if (!env->map)
 		return (0);
 	while (get_next_line(fd, &line))
 	{
-		env->map[i] = malloc(sizeof(int) * (env->map_w + 1));
-		if (!env->map[i])
+		map->map[i] = malloc(sizeof(int) * (map->width + 1));
+		if (!map->map[i])
 			return (0);
-		ft_fill_table(env->map[i], line);
+		ft_fill_table(map->map[i], line);
 		i++;
 		free(line);
 	}
-	env->map[i] = NULL;
+	map->map[i] = NULL;
 	close(fd);
 	return (1);
 }
