@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:10:10 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/23 15:55:16 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/24 15:59:30 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,17 @@
 # include "minilibx/mlx.h"
 # include <math.h>
 # include <stdio.h>
+# include <unistd.h>
 
 # define WIDTH 800
 # define HEIGHT 600
+
+typedef struct s_color
+{
+	int	red;
+	int	green;
+	int	blue;
+}				t_color;
 
 typedef struct s_point
 {

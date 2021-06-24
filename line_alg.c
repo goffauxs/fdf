@@ -6,11 +6,63 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 11:38:44 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/23 16:09:34 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/24 16:39:43 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static float ft_abs(float n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
+
+static int ft_lerpi(int first, int second, double p)
+{
+	if (first == second)
+		return (first);
+	return ((int)((double)first + (second - first) * p));
+}
+
+static int ft_steep_color(int y, t_point s, t_point e, float factor)
+{
+	int		r;
+	int		g;
+	int		b;
+	float	percent;
+	int		color;
+
+	percent = ft_abs(y - s.y) / ft_abs(e.y - s.y);
+	r = ft_lerpi((s.color >> 16) & 0xFF, (e.color >> 16) & 0xFF, percent);
+	g = ft_lerpi((s.color >> 8) & 0xFF, (e.color >> 8) & 0xFF, percent);
+	b = ft_lerpi(s.color & 0xFF, e.color & 0xFF, percent);
+	r *= (1.f - factor);
+	g *= (1.f - factor);
+	b *= (1.f - factor);
+	color = (r << 16) + (g << 8) + b;
+	return (color);
+}
+
+// static int ft_gentle_color(int x, t_point s, t_point e, float factor)
+// {
+// 	int		r;
+// 	int		g;
+// 	int		b;
+// 	float	percent;
+// 	int		color;
+	
+// 	percent = ft_abs(x - s.x) / ft_abs(e.x - e.x);
+// 	r = ft_lerpi((s.color >> 16) & 0xFF, (e.color >> 16) & 0xFF, percent);
+// 	g = ft_lerpi((s.color >> 8) & 0xFF, (e.color >> 8) & 0xFF, percent);
+// 	b = ft_lerpi(s.color & 0xFF, e.color & 0xFF, percent);
+// 	r *= (1.f - factor);
+// 	g *= (1.f - factor);
+// 	b *= (1.f - factor);
+// 	color = (r << 16) + (g << 8) + b;
+// 	return (color);
+// }
 
 static void	ft_swap(int *a, int *b)
 {
@@ -38,32 +90,27 @@ static float ft_rfpart(float n)
 	return (1.f - ft_fpart(n));
 }
 
-static float ft_abs(float n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
-}
-
 static void	ft_draw_line_loop(int steep, t_point s, t_point e, float gradient, t_fdf *env)
 {
 	float	intersectY;
+	int		x;
 	
-	intersectY = (float)(s.y);
-	while (s.x <= e.x)
+	intersectY = (float)s.y;
+	x = s.x;
+	while (x <= e.x)
 	{
 		if (steep)
 		{
-			ft_put_pixel(env, ft_ipart(intersectY), s.x, 0xFF0000 * (int)(ft_rfpart(intersectY) * 255));
-			ft_put_pixel(env, ft_ipart(intersectY) - 1, s.x, 0xFF0000 * (int)(ft_fpart(intersectY) * 255));
+			ft_put_pixel(env, ft_ipart(intersectY), x, ft_steep_color(ft_ipart(intersectY), s, e, ft_rfpart(intersectY)));
+			ft_put_pixel(env, ft_ipart(intersectY) - 1, x, ft_steep_color(ft_ipart(intersectY), s, e, ft_fpart(intersectY)));
 		}
 		else
 		{
-			ft_put_pixel(env, s.x, ft_ipart(intersectY), 0xFF0000 * (int)(ft_rfpart(intersectY) * 255));
-			ft_put_pixel(env, s.x, ft_ipart(intersectY) - 1, 0xFF0000 * (int)(ft_fpart(intersectY) * 255));
+			ft_put_pixel(env, x, ft_ipart(intersectY), ft_steep_color(ft_ipart(intersectY), s, e, ft_rfpart(intersectY)));
+			ft_put_pixel(env, x, ft_ipart(intersectY) - 1, ft_steep_color(ft_ipart(intersectY), s, e, ft_fpart(intersectY)));
 		}
 		intersectY += gradient;
-		s.x++;
+		x++;
 	}
 }
 

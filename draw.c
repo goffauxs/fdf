@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 10:17:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/23 16:03:12 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/24 16:01:42 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void ft_put_pixel(t_fdf *env, int x, int y, int color)
 {
-	int	i;
-	
-	if (x >= 0 && x < 800 && y >=0 && y < 600)
+	int		i;
+
+	if (x >= 0 && x < WIDTH && y >=0 && y < HEIGHT)
 	{
 		i = (x * env->bpp / 8) + (y * env->size_line);
 		env->data_addr[i] = color;
-		env->data_addr[++i] = color >> 8;
-		env->data_addr[++i] = color >> 16;
+		env->data_addr[++i] = color << 8;
+		env->data_addr[++i] = color << 16;
 	}
 }
 

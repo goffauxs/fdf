@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/23 16:08:17 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/24 16:25:04 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ t_point	iso(int x, int y, t_map *map, int zoom)
 	int	z;
 	
 	z = map->array[y][x];
+	if (z == 0)
+		point.color = 0x0000FF;
+	else
+		point.color = 0xFFFF00;
 	x *= zoom;
 	y *= zoom;
 	z *= zoom;
