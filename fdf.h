@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:10:10 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/24 15:59:30 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/25 12:36:20 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,14 @@
 # define WIDTH 800
 # define HEIGHT 600
 
-typedef struct s_color
-{
-	int	red;
-	int	green;
-	int	blue;
-}				t_color;
-
 typedef struct s_point
 {
 	int	x;
 	int	y;
 	int	z;
 	int	color;
+	int	reverse;
 }				t_point;
-
-typedef struct s_pointf
-{
-	float	x;
-	float	y;
-}				t_pointf;
 
 typedef struct s_map
 {
