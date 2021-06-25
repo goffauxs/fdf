@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:20:45 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/25 12:35:32 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:47:49 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,29 @@ static int	ft_get_width(char *filename)
 	return (width);
 }
 
-static void ft_fill_table(int *n, char *line)
+static void ft_fill_table(int **n, char *line, int *z_max)
 {
 	char	**num;
 	int		i;
+	int		j;
 
 	i = 0;
 	num = ft_split(line, ' ');
 	while (num[i])
 	{
-		n[i] = ft_atoi(num[i]);
+		n[i] = malloc(sizeof(int) * 2);
+		if (!n[i])
+			return ;
+		n[i][0] = ft_atoi(num[i]);
+		if (n[i][0] > *z_max)
+			*z_max = n[i][0];
+		j = 0;
+		while (num[i][j] && num[i][j] != ',')
+			j++;
+		if (num[i][j] == ',')
+			n[i][1] = ft_atoi_base(&num[i][++j], "0123456789ABCDEF");
+		else
+			n[i][1] = 0xFFFF00;
 		free(num[i]);
 		i++;
 	}
@@ -77,15 +90,15 @@ int	ft_check_valid(char *filename, t_map *map)
 	map->height = ft_get_height(filename);
 	fd = open(filename, O_RDONLY);
 	i = 0;
-	map->array = malloc(sizeof(int *) * (map->height + 1));
+	map->array = malloc(sizeof(int **) * (map->height + 1));
 	if (!map->array)
 		return (0);
 	while (get_next_line(fd, &line))
 	{
-		map->array[i] = malloc(sizeof(int) * (map->width + 1));
+		map->array[i] = malloc(sizeof(int *) * (map->width + 1));
 		if (!map->array[i])
 			return (0);
-		ft_fill_table(map->array[i], line);
+		ft_fill_table(map->array[i], line, &map->z_max);
 		i++;
 		free(line);
 	}

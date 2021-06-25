@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:10:10 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/25 12:36:20 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:44:07 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <stdio.h>
 # include <unistd.h>
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1920
+# define HEIGHT 1080
 
 typedef struct s_point
 {
@@ -36,7 +36,8 @@ typedef struct s_map
 {
 	int	height;
 	int	width;
-	int	**array;
+	int	***array;
+	int	z_max;
 }				t_map;
 
 typedef struct s_fdf
