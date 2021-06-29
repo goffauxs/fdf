@@ -6,14 +6,29 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/29 13:14:30 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/29 16:47:54 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
-static t_fdf	*ft_init(t_map *map)
+static char *ft_get_title(const char *str)
+{
+	int		i;
+	int		len;
+	char	*tmp;
+	
+	i = 0;
+	tmp = ft_strrchr(str, '/');
+	tmp++;
+	len = ft_strlen(tmp);
+	while(&str[i] != tmp)
+		i++;
+	return (ft_substr(str, i, len - 4));
+}
+
+static t_fdf	*ft_init(t_map *map, const char *title)
 {
 	t_fdf	*env;
 	
@@ -23,7 +38,7 @@ static t_fdf	*ft_init(t_map *map)
 	env->mlx = mlx_init();
 	if (!env->mlx)
 		return NULL;
-	env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, "test");
+	env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, ft_get_title(title));
 	if (!env->win)
 		return NULL;
 	env->img = mlx_new_image(env->mlx, WIDTH, HEIGHT);
@@ -70,16 +85,14 @@ int main(int argc, char *argv[])
 {
 	t_fdf	*env;
 	t_map	*map;
-	
+
 	(void)argc;
 	map = ft_map_init();
-	env = ft_init(map);
-	env->iso = 1;
-	ft_hook_controls(env);
+	env = ft_init(map, argv[1]);
+	env->iso = 0;
 	ft_check_valid(argv[1], map);
 	ft_camera_init(env);
-	env->camera->zoom--;
+	ft_hook_controls(env);
 	ft_draw(env->map, env);
-	printf("z_max: %d\n", map->z_max);
 	mlx_loop(env->mlx);
 }

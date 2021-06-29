@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:18:12 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/29 11:50:33 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/29 16:51:00 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,17 @@ int	get_default_color(int z, t_map *map)
 {
 	double percent;
 
-	percent = (double)(z / map->z_max);
+	if (map->z_max == 0)
+		return (0x432371);
+	percent = ((double)z / map->z_max);
 	if (percent < 0.2)
-		return (0x9A1F6A);
+		return (0x432371);
 	else if (percent < 0.4)
-		return (0xC2294E);
+		return (0x714674);
 	else if (percent < 0.6)
-		return (0xEC4B27);
+		return (0x9F6976);
 	else if (percent < 0.8)
-		return (0xEF8633);
+		return (0xCC8B79);
 	else
-		return (0xF3AF3D);
+		return (0xFAAE7B);
 }

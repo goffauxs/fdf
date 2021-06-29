@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:30:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/29 15:01:54 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/29 15:56:56 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void ft_zoom(int button, t_fdf *env)
 {
 	if (button == 4)
-		env->camera->zoom++;
+		env->camera->zoom += 2;
 	else if (button == 5)
-		env->camera->zoom--;
+		env->camera->zoom -= 2;
 	if (env->camera->zoom < 1)
 		env->camera->zoom = 1;
 	ft_draw(env->map, env);
