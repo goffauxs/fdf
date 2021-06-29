@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 10:17:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/25 14:57:56 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/29 11:23:33 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	ft_draw(t_map *map, t_fdf *env)
 		while (x < map->width)
 		{
 			if (x != map->width - 1)
-				draw_line(iso(x, y, map, zoom), iso(x + 1, y, map, zoom), env);
+				draw_line(project(x, y, env), project(x + 1, y, env), env);
 			if (y != map->height - 1)
-				draw_line(iso(x, y, map, zoom), iso(x, y + 1, map, zoom), env);
+				draw_line(project(x, y, env), project(x, y + 1, env), env);
 			x++;
 		}
 		y++;

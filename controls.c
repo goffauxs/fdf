@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/23 14:18:12 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/29 11:50:33 by sgoffaux         ###   ########.fr       */
+/*   Created: 2021/06/29 13:06:01 by sgoffaux          #+#    #+#             */
+/*   Updated: 2021/06/29 13:22:51 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	ft_min(int a, int b)
+static int	ft_close_win(t_fdf *env)
 {
-	if (a < b)
-		return (a);
-	return (b);
+	(void)env;
+	exit(0);
 }
 
-int	get_default_color(int z, t_map *map)
+void	ft_hook_controls(t_fdf *env)
 {
-	double percent;
-
-	percent = (double)(z / map->z_max);
-	if (percent < 0.2)
-		return (0x9A1F6A);
-	else if (percent < 0.4)
-		return (0xC2294E);
-	else if (percent < 0.6)
-		return (0xEC4B27);
-	else if (percent < 0.8)
-		return (0xEF8633);
-	else
-		return (0xF3AF3D);
+	mlx_hook(env->win, 2, 0, ft_key_press, env);
+	mlx_hook(env->win, 4, 0, ft_mouse_down, env);
+	mlx_hook(env->win, 5, 0, ft_mouse_up, env);
+	mlx_hook(env->win, 6, 0, ft_mouse_move, env);
+	mlx_hook(env->win, 17, 0, ft_close_win, env);
 }

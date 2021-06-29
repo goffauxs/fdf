@@ -6,13 +6,9 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/25 14:55:53 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/29 13:14:30 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-
-*/
 
 #include "fdf.h"
 #include <stdio.h>
@@ -36,7 +32,24 @@ static t_fdf	*ft_init(t_map *map)
 	env->data_addr = mlx_get_data_addr(env->img, &env->bpp, &env->size_line,
 										&env->endian);
 	env->map = map;
+	env->mouse = (t_mouse *)malloc(sizeof(t_mouse));
+	if (!env->mouse)
+		return NULL;
 	return (env);
+}
+
+static void	ft_camera_init(t_fdf *env)
+{
+	env->camera = malloc(sizeof(t_camera));
+	if (!env->camera)
+		return ;
+	env->camera->zoom = ft_min(WIDTH / env->map->width / 2, HEIGHT / env->map->height / 2);
+	env->camera->x_angle = 0;
+	env->camera->y_angle = 0;
+	env->camera->z_angle = 0;
+	env->camera->z_height = 1;
+	env->camera->x_offset = 0;
+	env->camera->y_offset = 0;
 }
 
 static t_map	*ft_map_init()
@@ -53,32 +66,6 @@ static t_map	*ft_map_init()
 	return (map);
 }
 
-t_point	iso(int x, int y, t_map *map, int zoom)
-{
-	t_point	point;
-	int	z;
-	
-	z = map->array[y][x][0];
-	point.color = map->array[y][x][1];
-	x *= zoom;
-	y *= zoom;
-	z *= zoom / 2.5f;
-	x -= (map->width * zoom) / 2;
-	y -= (map->height * zoom) / 2;
-	point.x = (x - y) * cos(0.523599);
-	point.y = -z + (x + y) * sin(0.523599);
-	point.x += WIDTH / 2;
-	point.y += (HEIGHT + map->height * zoom) / 2;
-	point.reverse = 0;
-	return (point);
-}
-
-static int	close_win(t_fdf *env)
-{
-	(void)env;
-	exit(0);
-}
-
 int main(int argc, char *argv[])
 {
 	t_fdf	*env;
@@ -87,18 +74,12 @@ int main(int argc, char *argv[])
 	(void)argc;
 	map = ft_map_init();
 	env = ft_init(map);
-	mlx_hook(env->win, 17, 0, close_win, &env);
+	env->iso = 1;
+	ft_hook_controls(env);
 	ft_check_valid(argv[1], map);
+	ft_camera_init(env);
+	env->camera->zoom--;
 	ft_draw(env->map, env);
 	printf("z_max: %d\n", map->z_max);
-	// for (int y=0; y < map->height; y++)
-	// {
-	// 	for (int x=0; x < map->width; x++)
-	// 	{
-	// 		if (map->array[y][x][0] > 5)
-	// 			printf("%#8X ", map->array[y][x][1]);
-	// 	}
-	// 	printf("\n");
-	// }
 	mlx_loop(env->mlx);
 }

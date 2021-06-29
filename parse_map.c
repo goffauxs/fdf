@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:20:45 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/25 14:47:49 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/06/29 11:54:41 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void ft_fill_table(int **n, char *line, int *z_max)
 		if (num[i][j] == ',')
 			n[i][1] = ft_atoi_base(&num[i][++j], "0123456789ABCDEF");
 		else
-			n[i][1] = 0xFFFF00;
+			n[i][1] = 0;
 		free(num[i]);
 		i++;
 	}
