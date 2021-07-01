@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/29 16:47:54 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/01 12:04:36 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static t_fdf	*ft_init(t_map *map, const char *title)
 	env->mouse = (t_mouse *)malloc(sizeof(t_mouse));
 	if (!env->mouse)
 		return NULL;
+	env->alt_down = 0;
 	return (env);
 }
 
@@ -59,8 +60,8 @@ static void	ft_camera_init(t_fdf *env)
 	if (!env->camera)
 		return ;
 	env->camera->zoom = ft_min(WIDTH / env->map->width / 2, HEIGHT / env->map->height / 2);
-	env->camera->x_angle = 0;
-	env->camera->y_angle = 0;
+	env->camera->x_angle = -0.523599;
+	env->camera->y_angle = -0.261799;
 	env->camera->z_angle = 0;
 	env->camera->z_height = 1;
 	env->camera->x_offset = 0;

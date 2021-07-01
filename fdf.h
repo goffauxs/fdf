@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:10:10 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/29 13:13:41 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/01 12:13:34 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_camera
 
 typedef struct s_mouse
 {
-	int		pressed;
+	int		button;
 	int		x;
 	int		y;
 	int		prev_x;
@@ -70,6 +70,7 @@ typedef struct s_fdf
 	int			size_line;
 	int			endian;
 	int			iso;
+	int			alt_down;
 	t_map		*map;
 	t_camera	*camera;
 	t_mouse		*mouse;

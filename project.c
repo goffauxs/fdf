@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 10:45:49 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/29 12:03:25 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/01 11:07:55 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_point	project(int x, int y, t_fdf *env)
 		point.y = -point.z + (prev_x + point.y) * sin(0.523599);
 	}
 	point.x += WIDTH / 2 + env->camera->x_offset;
-	point.y += (HEIGHT + env->map->height * env->camera->zoom) / 2
+	point.y += (HEIGHT + env->map->height / 2 * env->camera->zoom) / 2
 				+ env->camera->y_offset;
 	point.reverse = 0;
 	return (point);
