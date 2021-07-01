@@ -6,13 +6,13 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 14:08:48 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/04/12 18:39:15 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/01 14:44:17 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(const char *s, int fd)
 {
 	if (s && fd >= 0)
 		while (*s != '\0')

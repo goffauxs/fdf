@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   alg_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/01 10:47:03 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 14:38:47 by sgoffaux         ###   ########.fr       */
+/*   Created: 2021/07/01 16:08:22 by sgoffaux          #+#    #+#             */
+/*   Updated: 2021/07/01 16:09:49 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "fdf.h"
 
-size_t	ft_strlen(const char *s)
+float	ft_abs(float n)
 {
-	size_t	i;
+	if (n < 0)
+		return (-n);
+	return (n);
+}
 
-	i = 0;
-	while (s && s[i] != '\0')
-		i++;
-	return (i);
+int	ft_ipart(float n)
+{
+	return ((int)n);
+}
+
+float	ft_fpart(float n)
+{
+	if (n > 0.f)
+		return (n - ft_ipart(n));
+	return (n - (ft_ipart(n) + 1.f));
+}
+
+float	ft_rfpart(float n)
+{
+	return (1.f - ft_fpart(n));
 }

@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 10:45:49 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 11:07:55 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/01 16:21:17 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_rotate_z(int *x, int *y, double z_angle)
 
 static int	ft_set_color(int x, int y, t_fdf *env)
 {
-	if (env->map->array[y][x][1])
+	if (env->map->array[y][x][1] >= 0)
 		return (env->map->array[y][x][1]);
 	else
 		return (get_default_color(env->map->array[y][x][0], env->map));
@@ -52,7 +52,7 @@ t_point	project(int x, int y, t_fdf *env)
 {
 	t_point	point;
 	int		prev_x;
-	
+
 	point.z = env->map->array[y][x][0];
 	point.color = ft_set_color(x, y, env);
 	point.x = x * env->camera->zoom;
@@ -71,7 +71,7 @@ t_point	project(int x, int y, t_fdf *env)
 	}
 	point.x += WIDTH / 2 + env->camera->x_offset;
 	point.y += (HEIGHT + env->map->height / 2 * env->camera->zoom) / 2
-				+ env->camera->y_offset;
+		+ env->camera->y_offset;
 	point.reverse = 0;
 	return (point);
 }

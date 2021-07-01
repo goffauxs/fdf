@@ -6,27 +6,20 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 11:38:44 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 10:34:33 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/01 16:16:57 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static float ft_abs(float n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
-}
-
-static int ft_lerp(int first, int second, double p)
+static int	ft_lerp(int first, int second, double p)
 {
 	if (first == second)
 		return (first);
 	return ((int)((double)first + (second - first) * p));
 }
 
-static int ft_get_color(int x, t_point s, t_point e, float factor)
+static int	ft_get_color(int x, t_point s, t_point e, float factor)
 {
 	int		r;
 	int		g;
@@ -61,61 +54,42 @@ static void	ft_swap(int *a, int *b)
 	*b = tmp;
 }
 
-static int	ft_ipart(float n)
-{
-	return ((int)n);
-}
-
-static float ft_fpart(float n)
-{
-	if (n > 0.f)
-		return (n - ft_ipart(n));
-	return (n - (ft_ipart(n) + 1.f));
-}
-
-static float ft_rfpart(float n)
-{
-	return (1.f - ft_fpart(n));
-}
-
-static void	ft_draw_line_loop(int steep, t_point s, t_point e,
-								float gradient, t_fdf *env)
+static void	ft_draw_line_loop(t_point s, t_point e, float gradient, t_fdf *env)
 {
 	float	inter_y;
 	int		x;
-	
+
 	inter_y = (float)s.y;
 	x = s.x;
 	while (x <= e.x)
 	{
-		if (steep)
+		if (env->steep)
 		{
 			ft_put_pixel(env, ft_ipart(inter_y), x,
-							ft_get_color(x, s, e, ft_rfpart(inter_y)));
+				ft_get_color(x, s, e, ft_rfpart(inter_y)));
 			ft_put_pixel(env, ft_ipart(inter_y) + 1, x,
-							ft_get_color(x, s, e, ft_fpart(inter_y)));
+				ft_get_color(x, s, e, ft_fpart(inter_y)));
 		}
 		else
 		{
 			ft_put_pixel(env, x, ft_ipart(inter_y),
-							ft_get_color(x, s, e, ft_rfpart(inter_y)));
+				ft_get_color(x, s, e, ft_rfpart(inter_y)));
 			ft_put_pixel(env, x, ft_ipart(inter_y) + 1,
-							ft_get_color(x, s, e, ft_fpart(inter_y)));
+				ft_get_color(x, s, e, ft_fpart(inter_y)));
 		}
 		inter_y += gradient;
 		x++;
 	}
 }
 
-void draw_line(t_point s, t_point e, t_fdf *env)
+void	ft_draw_line(t_point s, t_point e, t_fdf *env)
 {
-	int		steep;
 	float	dy;
 	float	dx;
 	float	gradient;
 
-	steep = ft_abs(e.y - s.y) > ft_abs(e.x - s.x);
-	if (steep)
+	env->steep = ft_abs(e.y - s.y) > ft_abs(e.x - s.x);
+	if (env->steep)
 	{
 		ft_swap(&s.x, &s.y);
 		ft_swap(&e.x, &e.y);
@@ -131,5 +105,5 @@ void draw_line(t_point s, t_point e, t_fdf *env)
 	gradient = dy / dx;
 	if (dx == 0.0f)
 		gradient = 1.f;
-	ft_draw_line_loop(steep, s, e, gradient, env);
+	ft_draw_line_loop(s, e, gradient, env);
 }

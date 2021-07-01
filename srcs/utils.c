@@ -6,11 +6,20 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:18:12 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 11:15:33 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/01 16:21:40 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_return_error(const char *err_msg)
+{
+	if (errno == 0)
+		ft_putendl_fd(err_msg, 2);
+	else
+		perror(err_msg);
+	exit(-1);
+}
 
 int	ft_min(int a, int b)
 {
@@ -21,7 +30,7 @@ int	ft_min(int a, int b)
 
 int	get_default_color(int z, t_map *map)
 {
-	double percent;
+	double	percent;
 
 	if (map->z_max == 0)
 		return (0x432371);

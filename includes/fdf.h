@@ -6,22 +6,31 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:10:10 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 12:13:34 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/01 16:56:42 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+# include "../get_next_line/get_next_line.h"
+# include "../libft/libft.h"
+# include "../minilibx/mlx.h"
 # include <fcntl.h>
-# include "get_next_line/get_next_line.h"
-# include "libft/libft.h"
-# include "minilibx/mlx.h"
+# include <errno.h>
 # include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
+
+# define ARROW_LEFT 123
+# define ARROW_RIGHT 124
+# define ARROW_DOWN 125
+# define ARROW_UP 126
+# define MINUS 27
+# define PLUS 24
+# define SPACE 49
 
 typedef struct s_point
 {
@@ -71,18 +80,29 @@ typedef struct s_fdf
 	int			endian;
 	int			iso;
 	int			alt_down;
+	int			steep;
 	t_map		*map;
 	t_camera	*camera;
 	t_mouse		*mouse;
 }				t_fdf;
 
-int		ft_check_valid(char *filename, t_map *map);
+void	ft_check_valid(char *filename, t_map *map);
 void	ft_draw(t_map *map, t_fdf *env);
-void 	ft_put_pixel(t_fdf *env, int x, int y, int color);
-void 	draw_line(t_point s, t_point e, t_fdf *env);
+void	ft_put_pixel(t_fdf *env, int x, int y, int color);
+void	ft_draw_line(t_point s, t_point e, t_fdf *env);
 t_point	project(int x, int y, t_fdf *env);
 int		ft_min(int a, int b);
 int		get_default_color(int z, t_map *map);
+void	ft_return_error(const char *err_msg);
+
+/*
+Xiaolin Wu line algorithm utils
+*/
+
+float	ft_abs(float n);
+int		ft_ipart(float n);
+float	ft_fpart(float n);
+float	ft_rfpart(float n);
 
 /*
 Controls

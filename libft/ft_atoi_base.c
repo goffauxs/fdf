@@ -6,15 +6,15 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 13:22:59 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/25 14:44:34 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/01 16:58:42 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		value_in_base(const char c, const char *base)
+static int	value_in_base(const char c, const char *base)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (base[i] != '\0')
@@ -29,10 +29,10 @@ static int		value_in_base(const char c, const char *base)
 		return (-1);
 }
 
-static int		atoi_check_invalid(const char *str)
+static int	atoi_check_invalid(const char *str)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	if (str[0] == '\0' || str[1] == '\0')
 		return (1);
@@ -65,13 +65,13 @@ unsigned int	ft_atoi_base(const char *str, const char *base)
 		while ((*str == ' ' || (*str >= 9 && *str <= 13)))
 			str++;
 		if (!ft_strncmp(str, "0x", 2)
-				&& !ft_strncmp(base, "0123456789ABCDEF", 16))
+			&& !ft_strncmp(base, "0123456789ABCDEF", 16))
 			str += 2;
 		while (*str != '\0')
 		{
 			if (value_in_base(ft_toupper(*str), base) >= 0)
-				value = (value * ft_strlen(base)) +
-							value_in_base(ft_toupper(*str), base);
+				value = (value * ft_strlen(base))
+					+ value_in_base(ft_toupper(*str), base);
 			else
 				break ;
 			str++;
