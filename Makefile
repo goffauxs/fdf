@@ -6,7 +6,7 @@
 #    By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/01 16:22:42 by sgoffaux          #+#    #+#              #
-#    Updated: 2021/07/01 16:54:55 by sgoffaux         ###   ########.fr        #
+#    Updated: 2021/07/02 15:46:32 by sgoffaux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,17 +40,17 @@ OBJS		=	$(SRCS:%.c=%.o)
 all:			$(NAME)
 
 $(NAME):		$(OBJS) $(LIBFT_A) $(GNL_A) $(MLX_A)
-				@$(CC) $(CFLAGS) $(OBJS) -L. -lft -lgnl -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
+				@$(CC) $(CFLAGS) $(OBJS) -L. -lft -lgnl -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit -g
 				@echo "Linked into executable \033[0;32mfdf\033[0m."
 
 $(LIBFT_A):	
 				@$(MAKE) -s -C $(LIBFT)
-				@echo "Compiled libft.a."
+				@echo "Compiled $(LIBFT_A)."
 				@cp -p $(addprefix $(LIBFT), $(LIBFT_A)) $(LIBFT_A)
 
 $(GNL_A):	
 				@$(MAKE) -s -C $(GNL)
-				@echo "Compiled libgnl.a."
+				@echo "Compiled $(GNL_A)."
 				@cp -p $(addprefix $(GNL), $(GNL_A)) $(GNL_A)
 
 $(MLX_A):

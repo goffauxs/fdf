@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:10:10 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 12:18:52 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 15:34:52 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define MOUSE_CLICK_MIDDLE 3
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
+# define ESCAPE 53
 
 typedef struct s_point
 {
@@ -120,5 +121,6 @@ int		ft_key_press(int keycode, void *params);
 int		ft_mouse_down(int button, int x, int y, void *params);
 int		ft_mouse_up(int button, int x, int y, void *params);
 int		ft_mouse_move(int x, int y, void *params);
+int		ft_close_win(void *params);
 
 #endif

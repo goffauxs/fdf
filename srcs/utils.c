@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:18:12 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 11:24:47 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 15:28:54 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,20 @@ int	get_default_color(int z, t_map *map)
 		return (0xCC8B79);
 	else
 		return (0xFAAE7B);
+}
+
+char	*ft_get_title(const char *str)
+{
+	int		i;
+	int		len;
+	char	*tmp;
+
+	i = 0;
+	tmp = ft_strrchr(str, '/');
+	if (tmp)
+		tmp++;
+	len = ft_strlen(tmp);
+	while (str[i] && &str[i] != tmp)
+		i++;
+	return (ft_substr(str, i, len - 4));
 }

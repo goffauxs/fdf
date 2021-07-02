@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:23:00 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 10:39:54 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 13:57:05 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	ft_key_press(int keycode, void *params)
 		ft_toggle_projection(env);
 	else if (keycode == KEY_R)
 		ft_reset(env);
+	else if (keycode == ESCAPE)
+		ft_close_win(env);
 	ft_draw(env->map, env);
 	return (0);
 }

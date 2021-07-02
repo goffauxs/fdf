@@ -6,15 +6,15 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:06:01 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 16:05:55 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 15:47:31 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	ft_close_win(t_fdf *env)
+int	ft_close_win(void *params)
 {
-	(void)env;
+	(void)params;
 	exit(0);
 }
 

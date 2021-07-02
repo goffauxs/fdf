@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 11:51:26 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 15:36:57 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*ft_get_title(const char *str)
 	return (ft_substr(str, i, len - 4));
 }
 
-static t_fdf	*ft_init(t_map *map, const char *path)
+static t_fdf	*ft_init(const char *path)
 {
 	t_fdf	*env;
 	char	*title;
@@ -49,7 +49,7 @@ static t_fdf	*ft_init(t_map *map, const char *path)
 		ft_return_error("error initializing image");
 	env->data_addr = mlx_get_data_addr(env->img, &env->bpp, &env->size_line,
 			&env->endian);
-	env->map = map;
+	env->map = NULL;
 	env->mouse = (t_mouse *)malloc(sizeof(t_mouse));
 	if (!env->mouse)
 		ft_return_error("error initializing mouse");
@@ -90,14 +90,13 @@ static t_map	*ft_map_init(void)
 int	main(int argc, char *argv[])
 {
 	t_fdf	*env;
-	t_map	*map;
 
 	if (argc == 2)
 	{
-		map = ft_map_init();
-		env = ft_init(map, argv[1]);
+		env = ft_init(argv[1]);
+		env->map = ft_map_init();
 		env->iso = 0;
-		ft_check_valid(argv[1], map);
+		ft_check_valid(argv[1], env->map);
 		ft_camera_init(env);
 		ft_hook_controls(env);
 		ft_draw(env->map, env);
