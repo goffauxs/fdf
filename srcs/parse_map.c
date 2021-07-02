@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:20:45 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 16:20:52 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 11:17:27 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,26 @@ static void	ft_fill_table(int **n, char *line, int *z_max)
 	free(num);
 }
 
+static void	ft_get_z_min(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	map->z_min = map->array[0][0][0];
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			if (map->array[i][j][0] < map->z_min)
+				map->z_min = map->array[i][j][0];
+			j++;
+		}
+		i++;
+	}
+}
+
 void	ft_check_valid(char *filename, t_map *map)
 {
 	int		fd;
@@ -98,18 +118,18 @@ void	ft_check_valid(char *filename, t_map *map)
 	if (fd == -1)
 		ft_return_error("open error");
 	i = 0;
-	map->array = malloc(sizeof(int **) * (map->height + 1));
+	map->array = malloc(sizeof(int **) * map->height);
 	if (!map->array)
 		ft_return_error("malloc error");
 	while (get_next_line(fd, &line))
 	{
-		map->array[i] = malloc(sizeof(int *) * (map->width + 1));
+		map->array[i] = malloc(sizeof(int *) * map->width);
 		if (!map->array[i])
 			ft_return_error("malloc error");
 		ft_fill_table(map->array[i], line, &map->z_max);
 		i++;
 		free(line);
 	}
-	map->array[i] = NULL;
+	ft_get_z_min(map);
 	close(fd);
 }

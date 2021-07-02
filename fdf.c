@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 16:19:30 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 11:51:26 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 static char	*ft_get_title(const char *str)
 {
@@ -84,6 +83,7 @@ static t_map	*ft_map_init(void)
 	map->width = 0;
 	map->array = NULL;
 	map->z_max = 0;
+	map->z_min = 0;
 	return (map);
 }
 

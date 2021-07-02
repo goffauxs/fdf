@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:10:10 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 16:56:42 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 12:18:52 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 # define MINUS 27
 # define PLUS 24
 # define SPACE 49
+# define KEY_R 15
+# define MOUSE_CLICK_LEFT 1
+# define MOUSE_CLICK_RIGHT 2
+# define MOUSE_CLICK_MIDDLE 3
+# define MOUSE_WHEEL_UP 4
+# define MOUSE_WHEEL_DOWN 5
 
 typedef struct s_point
 {
@@ -47,6 +53,7 @@ typedef struct s_map
 	int	width;
 	int	***array;
 	int	z_max;
+	int	z_min;
 }				t_map;
 
 typedef struct s_camera

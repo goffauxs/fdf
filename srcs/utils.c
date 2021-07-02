@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:18:12 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 16:21:40 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 11:24:47 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ int	ft_min(int a, int b)
 
 int	get_default_color(int z, t_map *map)
 {
-	double	percent;
+	double			percent;
+	unsigned int	max;
 
-	if (map->z_max == 0)
+	max = map->z_max - map->z_min;
+	if (max == 0)
 		return (0x432371);
-	percent = ((double)z / map->z_max);
+	percent = ((double)(z - map->z_min) / max);
 	if (percent < 0.2)
 		return (0x432371);
 	else if (percent < 0.4)

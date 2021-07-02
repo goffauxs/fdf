@@ -6,11 +6,29 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:23:00 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 16:48:29 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 10:39:54 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	ft_reset(t_fdf *env)
+{
+	env->camera->x_offset = 0;
+	env->camera->y_offset = 0;
+	if (env->iso)
+	{
+		env->camera->x_angle = 0;
+		env->camera->y_angle = 0;
+	}
+	else
+	{
+		env->camera->x_angle = -0.523599;
+		env->camera->y_angle = -0.261799;
+	}
+	env->camera->z_angle = 0;
+	env->camera->z_height = 1;
+}
 
 static void	ft_toggle_projection(t_fdf *env)
 {
@@ -63,6 +81,8 @@ int	ft_key_press(int keycode, void *params)
 		ft_mod_height(keycode, env);
 	else if (keycode == SPACE)
 		ft_toggle_projection(env);
+	else if (keycode == KEY_R)
+		ft_reset(env);
 	ft_draw(env->map, env);
 	return (0);
 }

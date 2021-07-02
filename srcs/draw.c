@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 10:17:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 16:38:39 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/02 12:18:26 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ void	ft_draw(t_map *map, t_fdf *env)
 {
 	int	x;
 	int	y;
-	int	zoom;
 
-	zoom = ft_min((int)(WIDTH / map->width / 2.f),
-			(int)(HEIGHT / map->height / 2.f));
 	ft_background(env);
 	y = 0;
 	while (y < map->height)
