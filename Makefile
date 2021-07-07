@@ -6,7 +6,7 @@
 #    By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/01 16:22:42 by sgoffaux          #+#    #+#              #
-#    Updated: 2021/07/07 11:50:16 by sgoffaux         ###   ########.fr        #
+#    Updated: 2021/07/07 14:33:50 by sgoffaux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ OBJS		=	$(SRCS:%.c=%.o)
 all:			$(NAME)
 
 $(NAME):		$(OBJS) $(LIBFT_A) $(GNL_A) $(MLX_A)
-				@$(CC) $(CFLAGS) $(OBJS) -L. -lft -lgnl -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit -g
+				@$(CC) $(CFLAGS) $(OBJS) -L. -lft -lgnl -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
 				@echo "Linked into executable \033[0;32mfdf\033[0m."
 
 $(LIBFT_A):	
