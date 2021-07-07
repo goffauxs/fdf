@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 10:45:49 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/01 16:21:17 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/07 11:33:40 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_point	project(int x, int y, t_fdf *env)
 	ft_rotate_x(&point.y, &point.z, env->camera->x_angle);
 	ft_rotate_y(&point.x, &point.z, env->camera->y_angle);
 	ft_rotate_z(&point.x, &point.y, env->camera->z_angle);
-	if (env->iso)
+	if (env->camera->iso)
 	{
 		prev_x = point.x;
 		point.x = (point.x - point.y) * cos(0.523599);

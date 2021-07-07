@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:23:00 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 13:57:05 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/07 11:00:43 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_reset(t_fdf *env)
 {
 	env->camera->x_offset = 0;
 	env->camera->y_offset = 0;
-	if (env->iso)
+	if (env->camera->iso)
 	{
 		env->camera->x_angle = 0;
 		env->camera->y_angle = 0;
@@ -28,11 +28,13 @@ static void	ft_reset(t_fdf *env)
 	}
 	env->camera->z_angle = 0;
 	env->camera->z_height = 1;
+	env->camera->zoom = ft_min(WIDTH / env->map->width / 2,
+			HEIGHT / env->map->height / 2);
 }
 
 static void	ft_toggle_projection(t_fdf *env)
 {
-	if (env->iso)
+	if (env->camera->iso)
 	{
 		env->camera->x_angle = -0.523599;
 		env->camera->y_angle = -0.261799;
@@ -42,7 +44,7 @@ static void	ft_toggle_projection(t_fdf *env)
 		env->camera->x_angle = 0;
 		env->camera->y_angle = 0;
 	}
-	env->iso = !env->iso;
+	env->camera->iso = !env->camera->iso;
 }
 
 static void	ft_mod_height(int keycode, t_fdf *env)

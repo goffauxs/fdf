@@ -6,16 +6,24 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:18:12 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 15:28:54 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/07 11:44:46 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_return_error(const char *err_msg)
+void	ft_get_z_min_max(t_map *map, int n)
 {
-	if (errno == 0)
-		ft_putendl_fd(err_msg, 2);
+	if (n > map->z_max)
+		map->z_max = n;
+	if (n < map->z_min)
+		map->z_min = n;
+}
+
+void	ft_return_error(const char *err_msg, int system)
+{
+	if (!system)
+		ft_putendl_fd(err_msg, STDERR_FILENO);
 	else
 		perror(err_msg);
 	exit(-1);
@@ -47,20 +55,4 @@ int	get_default_color(int z, t_map *map)
 		return (0xCC8B79);
 	else
 		return (0xFAAE7B);
-}
-
-char	*ft_get_title(const char *str)
-{
-	int		i;
-	int		len;
-	char	*tmp;
-
-	i = 0;
-	tmp = ft_strrchr(str, '/');
-	if (tmp)
-		tmp++;
-	len = ft_strlen(tmp);
-	while (str[i] && &str[i] != tmp)
-		i++;
-	return (ft_substr(str, i, len - 4));
 }
