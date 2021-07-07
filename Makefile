@@ -6,7 +6,7 @@
 #    By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/01 16:22:42 by sgoffaux          #+#    #+#              #
-#    Updated: 2021/07/02 15:46:32 by sgoffaux         ###   ########.fr        #
+#    Updated: 2021/07/07 11:50:16 by sgoffaux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,8 @@ $(MLX_A):
 				@echo "Compiled $(MLX_A)"
 				@cp -p $(addprefix $(MLX), $(MLX_A)) $(MLX_A)
 
+bonus:			all
+
 .c.o:
 				@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 				@echo "Compiling $<."
@@ -90,4 +92,4 @@ fclean:			localclean
 
 re:				fclean all
 
-.PHONY:			all clean fclean re localclean
+.PHONY:			all clean fclean re localclean bonus
