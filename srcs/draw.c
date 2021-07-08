@@ -6,24 +6,11 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 10:17:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 12:18:26 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 11:34:43 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	ft_put_pixel(t_fdf *env, int x, int y, int color)
-{
-	int		i;
-
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-	{
-		i = (x * env->bpp / 8) + (y * env->size_line);
-		env->data_addr[i] = color;
-		env->data_addr[++i] = color >> 8;
-		env->data_addr[++i] = color >> 16;
-	}
-}
 
 static void	ft_background(t_fdf *env)
 {
@@ -47,18 +34,22 @@ void	ft_draw(t_map *map, t_fdf *env)
 
 	ft_background(env);
 	y = 0;
-	while (y < map->height)
+	if (env->camera->x_angle > 0)
+		y = map->height - 1;
+	while (y < map->height && y >= 0)
 	{
 		x = 0;
-		while (x < map->width)
+		if (env->camera->y_angle > 0)
+			x = map->width - 1;
+		while (x < map->width && x >= 0)
 		{
 			if (x != map->width - 1)
 				ft_draw_line(project(x, y, env), project(x + 1, y, env), env);
 			if (y != map->height - 1)
 				ft_draw_line(project(x, y, env), project(x, y + 1, env), env);
-			x++;
+			x += -2 * (env->camera->y_angle > 0) + 1;
 		}
-		y++;
+		y += -2 * (env->camera->x_angle > 0) + 1;
 	}
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }

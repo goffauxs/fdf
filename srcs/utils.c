@@ -6,11 +6,24 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 14:18:12 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/07 11:44:46 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 11:34:48 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_put_pixel(t_fdf *env, int x, int y, int color)
+{
+	int		i;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		i = (x * env->bpp / 8) + (y * env->size_line);
+		env->data_addr[i] = color;
+		env->data_addr[++i] = color >> 8;
+		env->data_addr[++i] = color >> 16;
+	}
+}
 
 void	ft_get_z_min_max(t_map *map, int n)
 {
