@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:10:10 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/07 10:34:44 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 11:45:33 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	ft_draw_line(t_point s, t_point e, t_fdf *env);
 t_point	project(int x, int y, t_fdf *env);
 int		ft_min(int a, int b);
 int		get_default_color(int z, t_map *map);
-void	ft_return_error(const char *err_msg, int n);
+void	ft_return_error(const char *err_msg, int system_function);
 
 /*
 Xiaolin Wu line algorithm utils

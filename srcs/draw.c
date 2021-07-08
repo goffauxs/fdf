@@ -6,11 +6,21 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 10:17:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/08 11:34:43 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 12:03:04 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	ft_draw_instructions(t_fdf *env)
+{
+	mlx_string_put(env->mlx, env->win, 5, 0, 0xFFFFFF, "Left Click:   Pan");
+	mlx_string_put(env->mlx, env->win, 5, 20, 0xFFFFFF, "Right Click:  Rotate x/y");
+	mlx_string_put(env->mlx, env->win, 5, 40, 0xFFFFFF, "Middle Click: Rotate z");
+	mlx_string_put(env->mlx, env->win, 5, 60, 0xFFFFFF, "Space:        Toggle projection");
+	mlx_string_put(env->mlx, env->win, 5, 80, 0xFFFFFF, "R:            Reset");
+	mlx_string_put(env->mlx, env->win, 5, 100, 0xFFFFFF, "-/+:          Flatten");
+}
 
 static void	ft_background(t_fdf *env)
 {
@@ -52,4 +62,5 @@ void	ft_draw(t_map *map, t_fdf *env)
 		y += -2 * (env->camera->x_angle > 0) + 1;
 	}
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+	ft_draw_instructions(env);
 }
