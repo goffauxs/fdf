@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:20:45 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/08 15:51:43 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 16:01:34 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,17 +120,16 @@ void	ft_check_valid(char *filename, t_map *map)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		ft_return_error("open error", 1);
-	i = 0;
+	i = -1;
 	map->array = malloc(sizeof(int **) * map->height);
 	if (!map->array)
 		ft_return_error("malloc error", 1);
 	while (get_next_line(fd, &line) > 0)
 	{
-		map->array[i] = malloc(sizeof(int *) * map->width);
+		map->array[++i] = malloc(sizeof(int *) * map->width);
 		if (!map->array[i])
 			ft_return_error("malloc error", 1);
 		ft_fill_table(map->array[i], line, map->width);
-		i++;
 		free(line);
 	}
 	free(line);

@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:06:01 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/08 15:53:28 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 16:02:42 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	ft_close_win(void *params)
 	free(env->map);
 	free(env->mlx);
 	free(env);
-	system("leaks -q fdf");
 	exit(0);
 }
 
