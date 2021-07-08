@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/07 11:26:13 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 15:52:42 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_fdf	*ft_init(const char *path)
 	char	*title;
 
 	title = ft_strjoin("FdF - ", path);
-	env = malloc(sizeof(t_fdf));
+	env = (t_fdf *)malloc(sizeof(t_fdf));
 	if (!env)
 		ft_return_error("malloc error", 1);
 	env->mlx = mlx_init();
@@ -34,34 +34,37 @@ static t_fdf	*ft_init(const char *path)
 	env->data_addr = mlx_get_data_addr(env->img, &env->bpp, &env->size_line,
 			&env->endian);
 	env->map = NULL;
+	env->camera = NULL;
 	env->mouse = (t_mouse *)malloc(sizeof(t_mouse));
 	if (!env->mouse)
 		ft_return_error("error initializing mouse", 1);
-	env->alt_down = 0;
 	return (env);
 }
 
-static void	ft_camera_init(t_fdf *env)
+static t_camera	*ft_camera_init(t_fdf *env)
 {
-	env->camera = malloc(sizeof(t_camera));
-	if (!env->camera)
+	t_camera	*camera;
+
+	camera = (t_camera *)malloc(sizeof(t_camera));
+	if (!camera)
 		ft_return_error("error initializing camera", 1);
-	env->camera->zoom = ft_min(WIDTH / env->map->width / 2,
+	camera->zoom = ft_min(WIDTH / env->map->width / 2,
 			HEIGHT / env->map->height / 2);
-	env->camera->x_angle = -0.523599;
-	env->camera->y_angle = -0.261799;
-	env->camera->z_angle = 0;
-	env->camera->z_height = 1;
-	env->camera->x_offset = 0;
-	env->camera->y_offset = 0;
-	env->camera->iso = 0;
+	camera->x_angle = -0.523599;
+	camera->y_angle = -0.261799;
+	camera->z_angle = 0;
+	camera->z_height = 1;
+	camera->x_offset = 0;
+	camera->y_offset = 0;
+	camera->iso = 0;
+	return (camera);
 }
 
 static t_map	*ft_map_init(void)
 {
 	t_map	*map;
 
-	map = malloc(sizeof(t_map));
+	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
 		ft_return_error("error initializing map", 1);
 	map->height = 0;
@@ -81,7 +84,7 @@ int	main(int argc, char *argv[])
 		env = ft_init(argv[1]);
 		env->map = ft_map_init();
 		ft_check_valid(argv[1], env->map);
-		ft_camera_init(env);
+		env->camera = ft_camera_init(env);
 		ft_hook_controls(env);
 		ft_draw(env->map, env);
 		mlx_loop(env->mlx);

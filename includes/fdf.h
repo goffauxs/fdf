@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:10:10 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/08 11:45:33 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 14:15:14 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct s_fdf
 	int			bpp;
 	int			size_line;
 	int			endian;
-	int			alt_down;
 	int			steep;
 	t_map		*map;
 	t_camera	*camera;

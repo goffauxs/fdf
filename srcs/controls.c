@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:06:01 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 15:47:31 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 15:53:28 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,28 @@
 
 int	ft_close_win(void *params)
 {
-	(void)params;
+	t_fdf	*env;
+	int		x;
+	int		y;
+
+	env = (t_fdf *)params;
+	mlx_destroy_image(env->mlx, env->img);
+	mlx_destroy_window(env->mlx, env->win);
+	free(env->camera);
+	free(env->mouse);
+	y = -1;
+	while (++y < env->map->height)
+	{
+		x = -1;
+		while (++x < env->map->width)
+			free(env->map->array[y][x]);
+		free(env->map->array[y]);
+	}
+	free(env->map->array);
+	free(env->map);
+	free(env->mlx);
+	free(env);
+	system("leaks -q fdf");
 	exit(0);
 }
 

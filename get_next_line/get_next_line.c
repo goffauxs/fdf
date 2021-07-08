@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 11:05:16 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/06/09 11:47:53 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 15:43:13 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*ft_malloc_size(char **line, char *buf)
 	buf_len = 0;
 	while (buf[buf_len] && buf[buf_len] != '\n')
 		buf_len++;
-	ret = malloc(sizeof(char) * (buf_len + line_len + 1));
+	ret = (char *)malloc(sizeof(char) * (buf_len + line_len + 1));
 	if (!ret)
 		return (NULL);
 	return (ret);

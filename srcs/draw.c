@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 10:17:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/08 12:03:04 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 13:19:09 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,12 @@ static void	ft_draw_instructions(t_fdf *env)
 	mlx_string_put(env->mlx, env->win, 5, 100, 0xFFFFFF, "-/+:          Flatten");
 }
 
-static void	ft_background(t_fdf *env)
-{
-	int	*image;
-	int	i;
-
-	i = 0;
-	ft_bzero(env->data_addr, WIDTH * HEIGHT * (env->bpp / 8));
-	image = (int *)env->data_addr;
-	while (i < WIDTH * HEIGHT)
-	{
-		image[i] = 0;
-		i++;
-	}
-}
-
 void	ft_draw(t_map *map, t_fdf *env)
 {
 	int	x;
 	int	y;
 
-	ft_background(env);
+	ft_bzero(env->data_addr, WIDTH * HEIGHT * (env->bpp / 8));
 	y = 0;
 	if (env->camera->x_angle > 0)
 		y = map->height - 1;

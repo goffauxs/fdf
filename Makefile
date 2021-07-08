@@ -6,7 +6,7 @@
 #    By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/01 16:22:42 by sgoffaux          #+#    #+#              #
-#    Updated: 2021/07/07 14:33:50 by sgoffaux         ###   ########.fr        #
+#    Updated: 2021/07/08 15:56:43 by sgoffaux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,23 +40,20 @@ OBJS		=	$(SRCS:%.c=%.o)
 all:			$(NAME)
 
 $(NAME):		$(OBJS) $(LIBFT_A) $(GNL_A) $(MLX_A)
-				@$(CC) $(CFLAGS) $(OBJS) -L. -lft -lgnl -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
+				@$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT) -lft -L$(GNL) -lgnl -L$(MLX) -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
 				@echo "Linked into executable \033[0;32mfdf\033[0m."
 
 $(LIBFT_A):	
 				@$(MAKE) -s -C $(LIBFT)
 				@echo "Compiled $(LIBFT_A)."
-				@cp -p $(addprefix $(LIBFT), $(LIBFT_A)) $(LIBFT_A)
 
 $(GNL_A):	
 				@$(MAKE) -s -C $(GNL)
 				@echo "Compiled $(GNL_A)."
-				@cp -p $(addprefix $(GNL), $(GNL_A)) $(GNL_A)
 
 $(MLX_A):
 				@$(MAKE) -s -C $(MLX)
 				@echo "Compiled $(MLX_A)"
-				@cp -p $(addprefix $(MLX), $(MLX_A)) $(MLX_A)
 
 bonus:			all
 
@@ -83,10 +80,6 @@ fclean:			localclean
 				@echo "Full clean gnl."
 				@$(MAKE) clean -s -C $(MLX)
 				@echo "Clean mlx."
-				@$(RM) $(LIBFT_A)
-				@$(RM) $(GNL_A)
-				@$(RM) $(MLX_A)
-				@echo "Removed libs."
 				@$(RM) $(NAME)
 				@echo "Removed executable."
 

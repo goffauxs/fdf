@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:20:45 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/07 11:33:32 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/08 15:51:43 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	ft_get_height(char *filename)
 		height++;
 		free(line);
 	}
+	free(line);
 	if (close(fd) == -1)
 		ft_return_error("close error", 1);
 	return (height);
@@ -123,7 +124,7 @@ void	ft_check_valid(char *filename, t_map *map)
 	map->array = malloc(sizeof(int **) * map->height);
 	if (!map->array)
 		ft_return_error("malloc error", 1);
-	while (get_next_line(fd, &line))
+	while (get_next_line(fd, &line) > 0)
 	{
 		map->array[i] = malloc(sizeof(int *) * map->width);
 		if (!map->array[i])
@@ -132,6 +133,7 @@ void	ft_check_valid(char *filename, t_map *map)
 		i++;
 		free(line);
 	}
+	free(line);
 	ft_get_z_min_max(map);
 	if (close(fd) == -1)
 		ft_return_error("close error", 1);
