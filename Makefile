@@ -6,24 +6,22 @@
 #    By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/01 16:22:42 by sgoffaux          #+#    #+#              #
-#    Updated: 2021/07/08 15:56:43 by sgoffaux         ###   ########.fr        #
+#    Updated: 2021/07/09 10:41:49 by sgoffaux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	fdf
-LIBFT_A		=	libft.a
-GNL_A		=	libgnl.a
-MLX_A		=	libmlx.a
+LIBFT		=	libft/
+GNL			=	get_next_line/
+MLX			=	minilibx/
+LIBFT_A		=	$(addprefix $(LIBFT), libft.a)
+GNL_A		=	$(addprefix $(GNL), libgnl.a)
+MLX_A		=	$(addprefix $(MLX), libmlx.a)
 
 CC			=	gcc
 INCLUDE 	=	includes
 CFLAGS		=	-Wall -Wextra -Werror -I$(INCLUDE)
 RM			=	rm -f
-
-LIBFT		=	libft/
-GNL			=	get_next_line/
-MLX			=	minilibx/
-
 SRCS		=	fdf.c \
 				srcs/alg_utils.c \
 				srcs/controls.c \
@@ -43,11 +41,11 @@ $(NAME):		$(OBJS) $(LIBFT_A) $(GNL_A) $(MLX_A)
 				@$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT) -lft -L$(GNL) -lgnl -L$(MLX) -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
 				@echo "Linked into executable \033[0;32mfdf\033[0m."
 
-$(LIBFT_A):	
+$(LIBFT_A):
 				@$(MAKE) -s -C $(LIBFT)
 				@echo "Compiled $(LIBFT_A)."
 
-$(GNL_A):	
+$(GNL_A):
 				@$(MAKE) -s -C $(GNL)
 				@echo "Compiled $(GNL_A)."
 

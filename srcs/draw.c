@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 10:17:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/08 16:00:49 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/09 10:26:34 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_draw(t_map *map, t_fdf *env)
 		}
 		y += -2 * (env->camera->x_angle > 0) + 1;
 	}
+	mlx_clear_window(env->mlx, env->win);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	ft_draw_instructions(env);
 }
