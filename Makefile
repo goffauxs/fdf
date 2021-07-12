@@ -6,7 +6,7 @@
 #    By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/01 16:22:42 by sgoffaux          #+#    #+#              #
-#    Updated: 2021/07/09 10:41:49 by sgoffaux         ###   ########.fr        #
+#    Updated: 2021/07/12 10:55:42 by sgoffaux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ $(GNL_A):
 
 $(MLX_A):
 				@$(MAKE) -s -C $(MLX)
-				@echo "Compiled $(MLX_A)"
+				@echo "Compiled $(MLX_A)."
 
 bonus:			all
 
