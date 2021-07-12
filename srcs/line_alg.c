@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 11:38:44 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 12:18:40 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/12 14:39:25 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void	ft_draw_line(t_point s, t_point e, t_fdf *env)
 	float	dx;
 	float	gradient;
 
+	if (((s.x > WIDTH || s.x < 0) || (s.y > HEIGHT || s.y < 0))
+		&& ((e.x > WIDTH || e.x < 0) || (e.y > HEIGHT || e.y < 0)))
+		return ;
 	env->steep = ft_abs(e.y - s.y) > ft_abs(e.x - s.x);
 	if (env->steep)
 	{
