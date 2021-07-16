@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 10:45:49 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/07 11:33:40 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/16 15:05:50 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ t_point	project(int x, int y, t_fdf *env)
 	if (env->camera->iso)
 	{
 		prev_x = point.x;
-		point.x = (point.x - point.y) * cos(0.523599);
-		point.y = -point.z + (prev_x + point.y) * sin(0.523599);
+		point.x = (point.x - point.y) * cos(0.8);
+		point.y = -point.z + (prev_x + point.y) * sin(0.8);
 	}
 	point.x += WIDTH / 2 + env->camera->x_offset;
 	point.y += (HEIGHT + env->map->height / 2 * env->camera->zoom) / 2

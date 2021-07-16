@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 10:17:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/09 10:26:34 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/07/16 15:02:48 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	ft_draw_instructions(t_fdf *env)
 {
+	char str[100];
+
 	mlx_string_put(env->mlx, env->win, 5, 0, 0xFFFFFF,
 		"Left Click:   Pan");
 	mlx_string_put(env->mlx, env->win, 5, 20, 0xFFFFFF,
@@ -26,6 +28,10 @@ static void	ft_draw_instructions(t_fdf *env)
 		"R:            Reset");
 	mlx_string_put(env->mlx, env->win, 5, 100, 0xFFFFFF,
 		"-/+:          Flatten");
+	snprintf(str, 100, "x_angle: %+f", env->camera->x_angle);
+	mlx_string_put(env->mlx, env->win, 5, 120, 0xFFFFFF, str);
+	snprintf(str, 100, "y_angle: %+f", env->camera->y_angle);
+	mlx_string_put(env->mlx, env->win, 5, 140, 0xFFFFFF, str);
 }
 
 void	ft_draw(t_map *map, t_fdf *env)
