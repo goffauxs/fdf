@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:23:00 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/07 11:00:43 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/08/23 15:23:08 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ static void	ft_toggle_projection(t_fdf *env)
 	{
 		env->camera->x_angle = -0.523599;
 		env->camera->y_angle = -0.261799;
+		env->camera->z_angle = 0;
 	}
 	else
 	{
-		env->camera->x_angle = 0;
-		env->camera->y_angle = 0;
+		env->camera->x_angle = -0.615472907;
+		env->camera->y_angle = -0.523599;
+		env->camera->z_angle = 0.615472907;
 	}
 	env->camera->iso = !env->camera->iso;
 }
