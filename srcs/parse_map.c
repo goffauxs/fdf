@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:20:45 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/08 16:01:34 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/08/24 15:43:39 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int	ft_get_width(char *filename)
 		ft_return_error("open error", 1);
 	width = 0;
 	get_next_line(fd, &line);
+	if (*line == '\0')
+		ft_return_error("invalid map", 0);
 	while (line[i])
 	{
 		if (line[i] != ' ' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
@@ -117,6 +119,7 @@ void	ft_check_valid(char *filename, t_map *map)
 
 	map->width = ft_get_width(filename);
 	map->height = ft_get_height(filename);
+	printf("width: %d, height: %d\n", map->width, map->height);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		ft_return_error("open error", 1);
