@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:20:45 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/08/27 13:58:52 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/09/01 15:57:19 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_get_height(char *filename)
 	if (fd == -1)
 		ft_return_error("open error", 1);
 	height = 0;
-	while (get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &line) >= 0 && *line != '\0')
 	{
 		height++;
 		free(line);
@@ -40,20 +40,20 @@ static int	ft_get_width(char *filename)
 	char	*line;
 	int		i;
 
-	i = 0;
+	i = -1;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		ft_return_error("open error", 1);
 	width = 0;
 	get_next_line(fd, &line);
 	if (*line == '\0')
-		ft_return_error("invalid map", 0);
-	while (line[i])
-	{
+		ft_return_error("invalid map (empty)", 0);
+	while (line[++i])
 		if (line[i] != ' ' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
 			width++;
-		i++;
-	}
+	free(line);
+	while (get_next_line(fd, &line))
+		free(line);
 	free(line);
 	if (close(fd) == -1)
 		ft_return_error("close error", 1);
@@ -126,7 +126,7 @@ void	ft_check_valid(char *filename, t_map *map)
 	map->array = malloc(sizeof(int **) * map->height);
 	if (!map->array)
 		ft_return_error("malloc error", 1);
-	while (get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &line) >= 0 && *line != '\0')
 	{
 		map->array[++i] = malloc(sizeof(int *) * map->width);
 		if (!map->array[i])

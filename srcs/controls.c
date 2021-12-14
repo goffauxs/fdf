@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 13:06:01 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/08 16:02:42 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/09/02 00:09:56 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,13 @@ void	ft_hook_controls(t_fdf *env)
 	mlx_hook(env->win, 5, 0, ft_mouse_up, env);
 	mlx_hook(env->win, 6, 0, ft_mouse_move, env);
 	mlx_hook(env->win, 17, 0, ft_close_win, env);
+}
+
+double	ft_reset_angles(double angle)
+{
+	if (angle >= M_PI)
+		return (-2 * M_PI - angle);
+	else if (angle <= -M_PI)
+		return (2 * M_PI + angle);
+	return (angle);
 }

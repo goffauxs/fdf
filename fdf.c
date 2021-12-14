@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 15:09:55 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/08 15:52:42 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/09/01 16:04:09 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ static t_camera	*ft_camera_init(t_fdf *env)
 		ft_return_error("error initializing camera", 1);
 	camera->zoom = ft_min(WIDTH / env->map->width / 2,
 			HEIGHT / env->map->height / 2);
-	camera->x_angle = -0.523599;
-	camera->y_angle = -0.261799;
-	camera->z_angle = 0;
+	camera->x_angle = -0.615472907;
+	camera->y_angle = -0.523599;
+	camera->z_angle = 0.615472907;
 	camera->z_height = 1;
 	camera->x_offset = 0;
 	camera->y_offset = 0;
-	camera->iso = 0;
+	camera->iso = 1;
 	return (camera);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:30:05 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/07/02 11:05:05 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/09/01 16:56:18 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	ft_mouse_move(int x, int y, void *params)
 	{
 		env->camera->x_angle += (y - env->mouse->prev_y) * 0.002;
 		env->camera->y_angle += (x - env->mouse->prev_x) * 0.002;
+		env->camera->x_angle = ft_reset_angles(env->camera->x_angle);
+		env->camera->y_angle = ft_reset_angles(env->camera->y_angle);
 		env->mouse->prev_x = x;
 		env->mouse->prev_y = y;
 		ft_draw(env->map, env);

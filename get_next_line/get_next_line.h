@@ -6,7 +6,7 @@
 /*   By: sgoffaux <sgoffaux@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 11:03:07 by sgoffaux          #+#    #+#             */
-/*   Updated: 2021/08/24 15:20:31 by sgoffaux         ###   ########.fr       */
+/*   Updated: 2021/08/27 16:48:12 by sgoffaux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 10000
 # endif
 
 # ifndef FD_MAX
